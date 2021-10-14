@@ -56,5 +56,20 @@ describe DockingStation do
     station = DockingStation.new(30)
     expect{30.times {station.return_bike(Bike.new)}}.not_to raise_error
   end
+   
+  it 'should not release broken bikes' do
+     broken_bike = Bike.new
+     broken_bike.broken
+     subject.return_bike(broken_bike)
+     expect { subject.release_bike }.to raise_error 'No bikes available'
+  end
 
+  it 'Dockingstation should accept a bike broken or not'do 
+      broken_bike = Bike.new 
+      broken_bike.broken
+      working_bike = Bike.new 
+      subject.return_bike(working_bike)
+      subject.return_bike(broken_bike)
+      expect(subject.release_bike.working?).to eq true
+  end 
 end

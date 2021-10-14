@@ -11,7 +11,12 @@ class DockingStation
 
   def release_bike 
     fail 'No bikes available' if empty?
-    @bikes.pop
+    @bikes.each do |bike|
+      if bike.working?
+        return bike
+      end
+    end 
+
   end
 
   def return_bike(bike)
@@ -26,7 +31,17 @@ class DockingStation
   end
 
   def empty?
-    @bikes.empty?
+    all_working_bike = 0 
+    @bikes.each do |bike|
+      if bike.working? 
+        all_working_bike += 1 
+      end 
+    end 
+    if all_working_bike == 0
+      true
+    else
+      false
+    end 
   end
 
 end
