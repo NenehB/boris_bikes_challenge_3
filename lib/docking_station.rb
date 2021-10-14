@@ -1,4 +1,5 @@
 require_relative 'bike'
+
 class DockingStation
   attr_reader :bikes
 
@@ -7,18 +8,24 @@ class DockingStation
 
   end
 
-  def release_bike
-   p @bikes 
-   fail 'No bikes available' if @bikes.empty?
+  def release_bike 
+    fail 'No bikes available' if empty?
     @bikes.pop
   end
 
   def return_bike(bike)
-    fail 'Bikes at maximum capacity' if @bikes.count >= 20
+    fail 'Bikes at maximum capacity' if full?
     @bikes << bike
   end
 
-  #def bike
-    #return @bike
-  #end
+  private
+
+  def full?
+    @bikes.count >= 20
+  end
+
+  def empty?
+    @bikes.empty?
+  end
+
 end
