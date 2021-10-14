@@ -19,7 +19,7 @@ describe DockingStation do
     it 'raises an error when there is already a bike' do
       bike = Bike.new
       subject.return_bike(bike)
-      expect { subject.return_bike(bike) }.to raise_error 'Bikes at maximum capacity'
+      expect{ 20.times{subject.return_bike(bike) }}.to raise_error 'Bikes at maximum capacity'
     end
   end
 
@@ -33,7 +33,7 @@ describe DockingStation do
   it 'Returns a bike to the docking station' do
     bike = Bike.new
     subject.return_bike(bike)
-    expect(subject.bike).to eq bike
+    expect(subject.bikes).to eq [bike]
     #station = DockingStation.new
     #expect(station.return_bike(bike)).to eq(bike)
   end
@@ -47,5 +47,8 @@ describe DockingStation do
   
   end
   
-  
+  it 'allows us to dock 20 bikes' do
+ expect {20.times{subject.return_bike(Bike.new)}}.not_to raise_error
+  end
+
 end
