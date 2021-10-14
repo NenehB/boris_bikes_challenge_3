@@ -37,6 +37,7 @@ describe DockingStation do
     #station = DockingStation.new
     #expect(station.return_bike(bike)).to eq(bike)
   end
+
   describe 'release_bike' do
     it 'releases a bike' do
       bike = Bike.new
@@ -48,7 +49,12 @@ describe DockingStation do
   end
   
   it 'allows us to dock 20 bikes' do
- expect { DockingStation::DEFAULT_CAPACITY.times{subject.return_bike(Bike.new)}}.not_to raise_error
+    expect { DockingStation::DEFAULT_CAPACITY.times{subject.return_bike(Bike.new)}}.not_to raise_error
+  end
+
+  it 'has a variable capacity' do
+    station = DockingStation.new(30)
+    expect{30.times {station.return_bike(Bike.new)}}.not_to raise_error
   end
 
 end
